@@ -8,7 +8,6 @@ import snowboydecoder
 import speech_recognition as sr
 from playsound import playsound
 
-
 polly_client = boto3.client(
 	'polly',
 	aws_access_key_id = str(os.getenv('AWS_ACCESS_KEY_ID')),
@@ -16,13 +15,12 @@ polly_client = boto3.client(
 	region_name='eu-west-3'
 )
 
-
 openai.organization = str(os.getenv('OAI_ORGANIZATION_ID'))
 openai.api_key = str(os.getenv('OAI_SECRET_KEY_ACCESS'))
 
-
 # Chemin vers le modèle de détection de mot-clé Snowboy
-model = 'resources/models/snowboy.umdl'
+
+snowboy_model = 'resources/models/snowboy.umdl'
 
 def text_to_speech(text, lang, filename):
 	response = polly_client.synthesize_speech(Text=text,
@@ -44,13 +42,13 @@ def detected_callback():
 
 	text_to_speech(random.choice([audio_response1, audio_response2, audio_response3]), "fr-FR", "output.mp3")
 	playsound("output.mp3")
-	text = listen_text()
+	text = mic_to_text()
 
 	if text != 0:
 		text_to_speech(response_of_ai(text), "fr-FR", "output.mp3")
 		playsound("output.mp3")
 
-def listen_text():
+def mic_to_text():
 
 	r = sr.Recognizer()
 
@@ -65,9 +63,7 @@ def listen_text():
 	try:
 		text = r.recognize_google(audio, language='fr-FR')
 		end_time = time.perf_counter()
-		print(f"text understanded, time for understanding : {round(end_time - start_time, 2)} seconds")
-
-		print("\n\n\n", text, "\n\n\n")
+		print(f"text understanded, time for understanding : {round(end_time - start_time, 2)} seconds\ntext : {text}")
 		return text
 
 	except sr.UnknownValueError:
@@ -100,5 +96,5 @@ def response_of_ai(input):
 	return (completion['choices'][0]['message']['content'])
 
 
-detector = snowboydecoder.HotwordDetector(model, sensitivity=0.9, audio_gain=1)
+detector = snowboydecoder.HotwordDetector(snowboy_model, sensitivity=0.9, audio_gain=1)
 detector.start(detected_callback)
