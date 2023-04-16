@@ -1,21 +1,24 @@
+import os
 import time
 import boto3
 import openai
-import pyaudio
 import random
+import pyaudio
 import snowboydecoder
 import speech_recognition as sr
 from playsound import playsound
 
 
-polly_client = boto3.client('polly',
-							aws_access_key_id='AKIA5U3XXSSA6B32ZFNP',
-							aws_secret_access_key='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',
-							region_name='eu-west-3')
+polly_client = boto3.client(
+	'polly',
+	aws_access_key_id = str(os.getenv('AWS_ACCESS_KEY_ID')),
+	aws_secret_access_key = str(os.getenv('AWS_SECRET_KEY_ACCESS')),
+	region_name='eu-west-3'
+)
 
 
-openai.organization = "org-5QAJ7coqZSdBV0QTHbwVNlET"
-openai.api_key_path = "./oai_key"
+openai.organization = str(os.getenv('OAI_ORGANIZATION_ID'))
+openai.api_key = str(os.getenv('OAI_SECRET_KEY_ACCESS'))
 
 
 # Chemin vers le modèle de détection de mot-clé Snowboy
@@ -34,12 +37,15 @@ def text_to_speech(text, lang, filename):
 
 def detected_callback():
 
-	response1 = "Ouai gros ?"
-	response2 = "Tu veux quoi mon sauce ?"
-	response3 = "Ouai le zingue ?"
-	text_to_speech(random.choice([response1, response2, response3]), "fr-FR", "output.mp3")
+	audio_response1 = "Ouai gros ?"
+	audio_response2 = "Tu veux quoi mon sauce ?"
+	audio_response3 = "Ouai le zingue ?"
+	audio_response4 = "Ouai ouai ouai ?"
+
+	text_to_speech(random.choice([audio_response1, audio_response2, audio_response3]), "fr-FR", "output.mp3")
 	playsound("output.mp3")
 	text = listen_text()
+
 	if text != 0:
 		text_to_speech(response_of_ai(text), "fr-FR", "output.mp3")
 		playsound("output.mp3")
@@ -63,10 +69,16 @@ def listen_text():
 
 		print("\n\n\n", text, "\n\n\n")
 		return text
+
 	except sr.UnknownValueError:
-		text_to_speech(random.choice(["Deso frero j'ai rien capté.", "Man, je comprends rien a ce que tu racontes."]), "fr-FR", "output.mp3")
+		audio_response1 = "Deso frero j'ai rien capté."
+		audio_response2 = "Man, je comprends rien a ce que tu racontes."
+		audio_response3 = "Frandjo tu racontes quoi ? Je pige pas."
+
+		text_to_speech(random.choice([audio_response1, audio_response2, audio_response3]), "fr-FR", "output.mp3")
 		playsound("output.mp3")
 		return 0
+
 	except sr.RequestError as e:
 		print("Impossible d'obtenir les résultats de Google Speech Recognition ; {0}".format(e))
 		return 0
@@ -77,7 +89,7 @@ def response_of_ai(input):
 	completion = openai.ChatCompletion.create(
 		model="gpt-3.5-turbo",
 		messages=[
-			{"role": "system", "content": "Tu es un assistant vocal. Tu te comportes comme un jeune de cite de 20 ans vulgaire et en colere"},
+			{"role": "system", "content": "Tu es un assistant vocal. Tu te comportes comme un jeune de cite de 20 ans extremement vulgaire et agressif"},
 			{"role": "user", "content": f"{input}"}
 		],
 		max_tokens=200,
