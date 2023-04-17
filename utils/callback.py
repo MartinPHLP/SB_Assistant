@@ -1,4 +1,5 @@
 import time
+import json
 import random
 from .conversions import *
 from .ai_processing import *
@@ -27,11 +28,20 @@ def detected_callback():
 	playsound("./audio/output.mp3")
 	text = speech_to_text()
 	if type(text) == str:
-		text_to_speech(result_of_ai(text), "./audio/output.mp3")
+		text_to_speech(get_ia_response(text), "./audio/output.mp3")
 		playsound("./audio/output.mp3")
+
+		if (len(chat_memory) >= 7):
+			resume = chat_resume(chat_memory)
+			del chat_memory[1:]
+			chat_memory.append({"role": "system", "content": f"assistant vulgaire et agressif, contexte: {resume}"})
+
+		print("\nconversation :\n", json.dumps(chat_memory, indent=4)) #PRINTTTTTTTTTTTT
+
 	elif text == 1:
 		text_to_speech(random.choice(itrc.unclear), "./audio/output.mp3")
 		playsound("./audio/output.mp3")
+
 	elif text == 0:
 		for i in range(3):
 			playsound("./audio/start.mp3")
