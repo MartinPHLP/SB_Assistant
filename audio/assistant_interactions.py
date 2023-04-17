@@ -8,6 +8,8 @@ ask_4 = "Ouai ouai ouai ?"
 ask_5 = "Wesh frero tu veux quoi ?"
 ask_6 = "Tu veux quoi tete de zeub ?"
 ask_7 = "Oh pélo il t'arrive quoi ?"
+ask_8 = "Ouai narvalito, qu'est ce que tu veux ?"
+ask_9 = "Oh frere tu veux quoi ?"
 
 
 ask_name = [var_name for var_name in dir() if var_name.startswith("ask")]

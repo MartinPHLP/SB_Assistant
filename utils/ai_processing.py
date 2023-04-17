@@ -8,7 +8,7 @@ from .keys_and_paths import OAI_ORGANIZATION_ID, OAI_SECRET_KEY_ACCESS
 openai.organization = OAI_ORGANIZATION_ID
 openai.api_key = OAI_SECRET_KEY_ACCESS
 
-chat_memory = [{"role": "system", "content": "Tu es un assistant vocal. Tu te comportes comme un jeune de cite de 20 ans extremement vulgaire et agressif."}]
+chat_memory = [{"role": "system", "content": "Tu es un assistant vocal. Tu es un jeune de cite de 20 ans extremement vulgaire et agressif. Pas plus de 5 phrases."}]
 
 
 ####### AI processing #######
