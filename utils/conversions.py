@@ -39,7 +39,7 @@ def speech_to_text():
 		playsound("./audio/start.mp3")
 
 		# Adjust duration to have better results #
-		r.adjust_for_ambient_noise(source, duration=1)
+		r.adjust_for_ambient_noise(source, duration=0.5)
 		audio = r.listen(source)
 		print("audio in")
 

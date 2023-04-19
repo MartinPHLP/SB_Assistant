@@ -7,5 +7,5 @@ from snowboy_detection import snowboydecoder
 
 if __name__ == "__main__":
 
-	detector = snowboydecoder.HotwordDetector(SB_MODEL, sensitivity=0.9, audio_gain=1)
+	detector = snowboydecoder.HotwordDetector(SB_MODEL, sensitivity=1.2, audio_gain=1)
 	detector.start(detected_callback)

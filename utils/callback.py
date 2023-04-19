@@ -34,9 +34,7 @@ def detected_callback():
 		if (len(chat_memory) >= 7):
 			resume = chat_resume(chat_memory)
 			del chat_memory[1:]
-			chat_memory.append({"role": "system", "content": f"assistant vulgaire et agressif, contexte: {resume}"})
-
-		print("\nconversation :\n", json.dumps(chat_memory, indent=4)) #PRINTTTTTTTTTTTT
+			chat_memory.append({"role": "system", "content": f"contexte: {resume}"})
 
 	elif text == 1:
 		text_to_speech(random.choice(itrc.unclear), "./audio/output.mp3")

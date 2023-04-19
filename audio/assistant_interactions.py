@@ -1,15 +1,13 @@
 ####### Text to ask a demand #######
 
 
-ask_1 = "Ouai gros ?"
-ask_2 = "Tu veux quoi mon sauce ?"
-ask_3 = "Ouai le zingue ?"
-ask_4 = "Ouai ouai ouai ?"
-ask_5 = "Wesh frero tu veux quoi ?"
-ask_6 = "Tu veux quoi tete de zeub ?"
-ask_7 = "Oh pélo il t'arrive quoi ?"
-ask_8 = "Ouai narvalito, qu'est ce que tu veux ?"
-ask_9 = "Oh frere tu veux quoi ?"
+ask_1 = "Oui, comment puis-je vous aider ?"
+ask_2 = "Oui, je vous écoute !"
+ask_3 = "De quoi avez-vous besoin ?"
+ask_4 = "Que puis-je faire pour vous ?"
+ask_5 = "De quoi avez-vous besoin ?"
+ask_6 = "Quelle est votre question ?"
+
 
 
 ask_name = [var_name for var_name in dir() if var_name.startswith("ask")]
@@ -21,9 +19,8 @@ for var_name in ask_name:
 ####### Text for an unclear input #######
 
 
-unclear_1 = "Deso frero j'ai rien capté."
-unclear_2 = "Man, je comprends rien a ce que tu racontes."
-unclear_3 = "Pélo tu racontes quoi ? Je pige pas."
+unclear_1 = "Désolé, je n'ai pas compris."
+unclear_2 = "Je n'ai pas compris ce que vous avez dit, pouvez-vous répéter ?"
 
 unclear_name = [var_name for var_name in dir() if var_name.startswith("unclear")]
 unclear = []
